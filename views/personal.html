@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>销售</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/public/js/ui_events.js"></script>
+    <script type="text/javascript" src="/public/js/websocket.js"></script>
+    <link href="/public/css/style.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+<body>
+<div id="top">
+    <h1 style="">信息管理系统</h1>
+</div>
+
+<div id="wrapper">
+    <ol class="breadcrumb" style="margin-bottom: 0; margin-left: 20px; background-color: #ffffff">
+        <li><a href="sale">销售</a></li>
+        <li class="active">个人中心</li>
+    </ol>
+    <div id="content">
+        <div id="left">
+            <div id="showBox">
+                <div class="panel-group" id="accordion">
+                    {% for tra in tradings %}
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href={{href}}>
+                                    {{tra.tradingTime}} 购买 {{tra.pro_id}}，点击查看详情
+                                </a>
+                            </h4>
+                        </div>
+                        <div id={{tra.id}} class="panel-collapse collapse">
+                            <div class="panel-body">
+                                {{products}}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <ul class="pager">
+                    <li><a href="check?page={{page-1}}">&larr; 上一页</a></li>
+                    <li>当前第 {{page}} 页 / 共 {{pages}} 页</li>
+                    <li><a href="check?page={{page+1}}">下一页 &rarr;</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="right">
+            <div id="rightTop">
+                <div class="title"><h4 style="margin-left: 30px;margin-top: 30px"><u style="color: darkorange">用户信息</u></h4></div>
+                <p style="margin-left: 50px">你好, {{userInfo.username}}! <a href="javascript:;" id="logout">点此退出</a></p>
+            </div>
+            <div id="rightBottom">
+                <div class="title"><h4 style="margin-left: 30px;margin-top: 30px"><u style="color: darkorange">通知</u></h4></div>
+                <p style="margin-left: 50px" class="notification">你有条 {{count}} 购买记录</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer">
+
+</div>
+</body>
+</html>

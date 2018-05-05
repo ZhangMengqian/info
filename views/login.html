@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link href="/public/css/style.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/public/js/ui_events.js"></script>
+    <script type="text/javascript" src="/public/js/websocket.js"></script>
+</head>
+<body>
+    <div id="top">
+        <h1 style="">信息管理系统</h1>
+    </div>
+
+    <div id="content">
+        <div class="middle" id="loginBox" >
+            <!--test-->
+            <!--<input type="text" class="form-control" name="username" placeholder="请输入用户名">-->
+            <!--<input type="password" class="form-control" name="password" placeholder="请输入密码">-->
+            <!--<button class="btn btn-success btn-block" id="loginBtn" onclick="return false;">登录</button>-->
+            <!--<p class="colWarning"></p>-->
+            <!--test end-->
+            <div class="form-horizontal" style="padding-top: 50px">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户名</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="username" placeholder="请输入用户名">
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">密    码</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-success btn-block" id="loginBtn" onclick="return false;">登录</button>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6">
+                        <p>还没注册？<a href="javascript:;" class="colMint">马上注册</a></p>
+                    </div>
+                </div>
+                <p class="colWarning"></p>
+            </div>
+        </div>
+        <div class="middle" id="registerBox"  style="display: none">
+            <div class="form-horizontal" style="padding-top: 50px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">用户名</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="username" placeholder="请输入用户名">
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户类型</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="type">
+                            <option selected value="1">发布</option>
+                            <option value="2">审核</option>
+                            <option value="3">运输</option>
+                            <option value="4">顾客</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">密  码</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">确  认</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" name="repassword" placeholder="请再次输入密码">
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <button class="btn btn-success btn-block" id="registerBtn">注册</button>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6">
+                            <p>已有账号？<a href="javascript:;" class="colMint">马上登录</a></p>
+                        </div>
+                    </div>
+                    <p class="colWarning"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+
+    </div>
+
+</body>
+</html>
