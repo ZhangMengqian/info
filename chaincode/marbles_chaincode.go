@@ -108,7 +108,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	} else if function == "write" {											//writes a value to the chaincode state
 		return t.Write(stub, args)
 	} else if function == "createPro" {									//create a new product
-		return t.init_product(stub, args)
+		return t.create(stub, args)
 	}
 	fmt.Println("invoke did not find func: " + function)					//error
 
@@ -125,45 +125,36 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 // Inputs - Array of strings
 //      0      ,    1  ,     2  ,      3          ,       4
 //     id      ,  pro_name, pro_num,  pro_price    ,  pro_desc
-// ============================================================================================================================
-func (t *SimpleChaincode) init_product(stub shim.ChaincodeStubInterface, args []string) ([]byte, error){
-	var err error
+// ===========================================================================================================================
+func (t *SimpleChaincode) create(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+
 	fmt.Println("starting init_product")
 
 	if len(args) != 6 {
 	    return nil, errors.New("Incorrect number of arguments. Expecting 6")
 	}
 
-	id := args[0]
-	name := args[1]
-	num := args[2]
-	price := args[3]
-	desc := args[4]
-    time := args[5]
+	newPro := Product{}
+	newPro.ObjectType = "product"
+    newPro.Id = args[0]
+    newPro.Pro_name = args[1]
+    newPro.Pro_num = args[2]
+    newPro.Left_num = args[2]
+    newPro.Pro_price = args[3]
+    newPro.Pro_desc = args[4]
+    newPro.Create_time = args[4]
+    newPro.Flag = 1
 
-	//build the product json string manually
-	str := `{
-		"docType": "product",
-		"id": "` + id + `",
-		"pro_name": "` + name + `",
-		"pro_num": "` + num + `",
-		"left_num": "` + num + `",
-		"pro_price": "` + price + `",
-		"pro_desc": "` + desc + `",
-		"create_time": "` + time + `",
-        "flag": 1
-	}`
-	err = stub.PutState(id, []byte(str))                         //store product with id as key
-	if err != nil {
+    proAsBytes, _ := json.Marshal(newPro)                         //convert to array of bytes
+	err = stub.PutState(newPro.Id, proAsBytes)                    //store owner by its Id
+    if err != nil {
 		jsonResp := "{\"Error\":\"Failed to init product \"}"
         return nil, errors.New(jsonResp)
 	}
 
 	fmt.Println("- end init_product")
 	return nil, nil
-
 }
-
 
 
 
