@@ -61,70 +61,29 @@ func main() {
 
 
 // ============================================================================================================================
-// Init - initialize the chaincode
-//
-// Marbles does not require initialization, so let's run a simple test instead.
-//
-// Shows off PutState() and how to pass an input argument to chaincode.
-// Shows off GetFunctionAndParameters() and GetStringArgs()
-// Shows off GetTxID() to get the transaction ID of the proposal
-//
-// Inputs - Array of strings
-//  ["314"]
-//
-// Returns - shim.Success or error
+// Init - reset all the things
 // ============================================================================================================================
-func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
-	fmt.Println("Marbles Is Starting Up")
-	funcName, args := stub.GetFunctionAndParameters()
-	var number int
+func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
+	var Aval int
 	var err error
-	txId := stub.GetTxID()
 
-	fmt.Println("Init() is running")
-	fmt.Println("Transaction ID:", txId)
-	fmt.Println("  GetFunctionAndParameters() function:", funcName)
-	fmt.Println("  GetFunctionAndParameters() args count:", len(args))
-	fmt.Println("  GetFunctionAndParameters() args found:", args)
-
-	// expecting 1 arg for instantiate or upgrade
-	if len(args) == 1 {
-		fmt.Println("  GetFunctionAndParameters() arg[0] length", len(args[0]))
-
-		// expecting arg[0] to be length 0 for upgrade
-		if len(args[0]) == 0 {
-			fmt.Println("  Uh oh, args[0] is empty...")
-		} else {
-			fmt.Println("  Great news everyone, args[0] is not empty")
-
-			// convert numeric string to integer
-			number, err = strconv.Atoi(args[0])
-			if err != nil {
-				return shim.Error("Expecting a numeric string argument to Init() for instantiate")
-			}
-
-			// this is a very simple test. let's write to the ledger and error out on any errors
-			// it's handy to read this right away to verify network is healthy if it wrote the correct value
-			err = stub.PutState("selftest", []byte(strconv.Itoa(number)))
-			if err != nil {
-				return shim.Error(err.Error())                  //self-test fail
-			}
-		}
+	if len(args) != 1 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
 
-	// showing the alternative argument shim function
-	alt := stub.GetStringArgs()
-	fmt.Println("  GetStringArgs() args count:", len(alt))
-	fmt.Println("  GetStringArgs() args found:", alt)
-
-	// store compatible marbles application version
-	err = stub.PutState("marbles_ui", []byte("4.0.1"))
+	// Initialize the chaincode
+	Aval, err = strconv.Atoi(args[0])
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, errors.New("Expecting integer value for asset holding")
 	}
 
-	fmt.Println("Ready for action")                          //self-test pass
-	return shim.Success(nil)
+	// Write the state to the ledger
+	err = stub.PutState("abc", []byte(strconv.Itoa(Aval)))				//making a test var "abc", I find it handy to read/write to it right away to test the network
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, nil
 }
 
 // ============================================================================================================================
@@ -180,12 +139,12 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 //      0      ,    1  ,     2  ,      3          ,       4
 //     id      ,  pro_name, pro_num,  pro_price    ,  pro_desc
 // ============================================================================================================================
-func init_product(stub shim.ChaincodeStubInterface, args []string) (pb.Response) {
+func (t *SimpleChaincode) init_product(stub shim.ChaincodeStubInterface, args []string) ([]byte, error){
 	var err error
 	fmt.Println("starting init_product")
 
 	if len(args) != 6 {
-		return shim.Error("Incorrect number of arguments. Expecting 6")
+	    return nil, errors.New("Incorrect number of arguments. Expecting 6")
 	}
 
 	id := args[0]
@@ -209,54 +168,12 @@ func init_product(stub shim.ChaincodeStubInterface, args []string) (pb.Response)
 	}`
 	err = stub.PutState(id, []byte(str))                         //store product with id as key
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err.Error()
 	}
 
 	fmt.Println("- end init_product")
-	return shim.Success(nil)
-}
+	return nil, nil
 
-// ============================================================================================================================
-// Init Owner - create a new owner aka end user, store into chaincode state
-//
-// Shows off building key's value from GoLang Structure
-//
-// Inputs - Array of Strings
-//                0   ,    1  ,     2
-//      owner  username, password, type
-// ============================================================================================================================
-func init_owner(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	var err error
-	fmt.Println("starting init_owner")
-
-	if len(args) != 3 {
-		return shim.Error("Incorrect number of arguments. Expecting 3")
-	}
-
-	var owner Owner
-	owner.ObjectType = "owner"
-	owner.Username = strings.ToLower(args[0])
-	owner.Password = args[1]
-	owner.Type = args[2]
-	fmt.Println(owner)
-
-	//check if user already exists
-	_, err = get_owner(stub, owner.Username)
-	if err == nil {
-		fmt.Println("This owner already exists - " + owner.Username)
-		return shim.Error("This owner already exists - " + owner.Username)
-	}
-
-	//store user
-	ownerAsBytes, _ := json.Marshal(owner)                         //convert to array of bytes
-	err = stub.PutState(owner.Username, ownerAsBytes)                    //store owner by its Username
-	if err != nil {
-		fmt.Println("Could not store user")
-		return shim.Error(err.Error())
-	}
-
-	fmt.Println("- end init_owner marble")
-	return shim.Success(nil)
 }
 
 
