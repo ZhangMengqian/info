@@ -20,9 +20,9 @@ type Product struct {
 	ObjectType  string        `json:"docType"` //field for couchdb
 	Id          string        `json:"id"`      //the fieldtags are needed to keep case from bouncing around
 	Pro_name    string        `json:"pro_name"`
-	Pro_num     int           `json:"pro_num"`
-	Left_num    int           `json:"left_num"`
-    Pro_price   int           `json:"pro_price"`
+	Pro_num     string           `json:"pro_num"`
+	Left_num    string           `json:"left_num"`
+    Pro_price   string           `json:"pro_price"`
     Pro_desc    string        `json:"pro_desc"`
 	Create_time    string     `json:"create_time"`
 	Flag        int           `json:"flag"`
