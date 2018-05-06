@@ -156,7 +156,8 @@ func (t *SimpleChaincode) init_product(stub shim.ChaincodeStubInterface, args []
 	}`
 	err = stub.PutState(id, []byte(str))                         //store product with id as key
 	if err != nil {
-		return nil, err.Error()
+		jsonResp := "{\"Error\":\"Failed to init product \"}"
+        return nil, errors.New(jsonResp)
 	}
 
 	fmt.Println("- end init_product")
