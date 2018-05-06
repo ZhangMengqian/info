@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"encoding/json"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
 
@@ -128,6 +129,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 // ===========================================================================================================================
 func (t *SimpleChaincode) create(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 
+	var err error
 	fmt.Println("starting init_product")
 
 	if len(args) != 6 {
