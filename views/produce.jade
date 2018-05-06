@@ -1,0 +1,27 @@
+#panel_produce(hidden).panel
+    h1 Produce
+    hr
+
+    block sub_mainstuff
+        br
+        span.hint &nbsp;&nbsp;&nbsp;&nbsp; 商品名称 &nbsp;&nbsp;
+        input(type="text" name="pro_name" placeholder="请输入名称")
+        br
+        span.hint &nbsp;&nbsp;&nbsp;&nbsp; 商品数量 &nbsp;&nbsp;
+        input(type="text" name="pro_num" placeholder="请输入数字")
+        br
+        span.hint &nbsp;&nbsp;&nbsp;&nbsp; 商品价格 &nbsp;&nbsp;
+        input(type="text" name="pro_price" placeholder="请输入单价，以元为单位")
+        br
+        span.hint &nbsp;&nbsp;&nbsp;&nbsp; 商品描述 &nbsp;&nbsp;
+        input(type="text" name="pro_desc" placeholder="请输入商品描述")
+        br
+        span.hint &nbsp;&nbsp;&nbsp;&nbsp; 商品图片 &nbsp;&nbsp;
+        input(type="file" name="pro_img")
+        br
+        br
+        button(type="button")#newProBt
+            //span.fa.fa-check &nbsp;&nbsp;
+            span 发布商品
+        button(type="button")#resetInfoBt
+            span 重置信息

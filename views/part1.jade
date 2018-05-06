@@ -1,0 +1,36 @@
+extends ./template/layout.jade
+	
+	
+// --------------- Header -------------- //
+block custom_header
+	script(src='/js/part1.js?v=#{bag.jshash}')
+	script(type='text/javascript').
+		$(document).ready(function(){
+			
+		});
+		
+		
+// --------------- Navigation Bar  -------------- //
+block navpanel
+	include ./template/nav_part1.jade
+	
+	
+// --------------- Main Stuff  -------------- //
+block content
+	#contentPanel
+		
+		#blockdate(title="date of last block") loading...
+		
+		// --------------- Home Panel
+		include ./panel_home.jade
+		// --------------- Produce Panel
+		include ./produce.jade
+		// --------------- Check Panel
+		include ./check.jade
+		// --------------- Sale Panel
+		include ./sale.jade
+		// --------------- Trans Panel
+		include ./trans.jade
+
+block footer
+	include ./template/blockchain.jade
