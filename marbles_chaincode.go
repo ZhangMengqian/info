@@ -409,8 +409,8 @@ func (t *SimpleChaincode) produce(stub shim.ChaincodeStubInterface, args []strin
 	newaccount := product{}
 	newaccount.Hash = args[0]
 	newaccount.Pro_name = args[1]
-	newaccount.pro_num = args[2]
-	newaccount.pro_price = args[3]
+	newaccount.Pro_num = args[2]
+	newaccount.Pro_price = args[3]
 	newaccount.Pro_desc = args[4]
 
 	jsonAsBytes, _ := json.Marshal(newaccount)
