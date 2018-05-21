@@ -1,0 +1,38 @@
+extends ./template/layout.jade
+	
+	
+// --------------- Header -------------- //
+block custom_header
+	script(src='/js/part1.js?v=#{bag.jshash}')
+	script(type='text/javascript').
+		$(document).ready(function(){
+			
+		});
+		
+		
+// --------------- Navigation Bar  -------------- //
+block navpanel
+	include ./template/nav_part1.jade
+	
+	
+// --------------- Main Stuff  -------------- //
+block content
+	#contentPanel
+		
+		#blockdate(title="date of last block") loading...
+		
+		// --------------- Home Panel
+		include ./panel_home.jade
+		// --------------- Create Account Panel
+		include ./panel_create.jade
+		// --------------- Create acTradeSetup Panel
+		include ./panel_acTradeSetup.jade
+		// --------------- Create acBenchmark Panel
+		include ./panel_acBenchmark.jade
+		// --------------- Create benchmark Panel
+		include ./panel_benchmark.jade
+		// --------------- Viewer Panel
+		include ./panel_viewer.jade
+
+block footer
+	include ./template/blockchain.jade

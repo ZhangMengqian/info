@@ -1,0 +1,28 @@
+#createPanel(hidden).panel
+
+	h1 发布
+	hr
+	
+	block sub_mainstuff
+		#account_maker
+			
+			hr
+			br
+			span.hint &nbsp;&nbsp;商品名称
+			input(type="text" name="pro_name" placeholder="请输入商品名称")
+			br
+			span.hint &nbsp;&nbsp; 商品数量
+			input(type="text" name="pro_num" placeholder="请输入数字")
+			br
+			span.hint &nbsp;&nbsp; 商品价格
+			input(type="text" name="peo_price" placeholder="请输入单价，以元为单位")
+			br
+			span.hint &nbsp;&nbsp; 商品描述
+			textarea(rows="3" name="pro_desc" placeholder="2017-01-01")
+			br
+			br
+			button(type="button")#submit
+				span.fa.fa-check &nbsp;&nbsp;
+				span create account 
+			br
+			

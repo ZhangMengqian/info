@@ -1,0 +1,39 @@
+{
+	"credentials": {
+		"peers": [{
+			"api_host": "localhost",
+			"api_port": 7050,
+			"type": "peer",
+			"id": "vp0"
+		},{
+			"api_host": "localhost",
+			"api_port": 8050,
+			"type": "peer",
+			"id": "vp1"
+		},{
+			"api_host": "localhost",
+			"api_port": 9050,
+			"type": "peer",
+			"id": "vp2"
+		},{
+			"api_host": "localhost",
+			"api_port": 10050,
+			"type": "peer",
+			"id": "vp3"
+		}],
+		"users":[{
+          "enrollId": "alice",
+          "enrollSecret": "CMS10pEQlB16"
+        },{
+          "enrollId": "lukas",
+          "enrollSecret": "NPKYL39uKbkj"
+        },{
+          "enrollId": "assigner",
+          "enrollSecret": "Tc43PeqBl11"
+        },{
+          "enrollId": "jim",
+          "enrollSecret": "6avZQLwcUe9b"
+        }],
+		"cert": "https://blockchain-certs.mybluemix.net/us.blockchain.ibm.com.cert"
+	}
+}
