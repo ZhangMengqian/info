@@ -59,7 +59,7 @@ type product struct{
 	Pro_name string `json:"pro_name"`
 	Pro_num string `json:"pro_num"`
 	Pro_price string `json:"pro_price"`
-	pro_desc string `json:"pro_desc"`
+	Pro_desc string `json:"pro_desc"`
 }
 
 type Ac_trades_setup struct{
