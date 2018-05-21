@@ -54,9 +54,17 @@ type Account struct{
 	Last_update_date string `json:"last_update_date"`
 }
 
+type product struct{
+    Hash string `json:"hash"`
+	Pro_name string `json:"pro_name"`
+	Pro_num string `json:"pro_num"`
+	Pro_price string `json:"pro_price"`
+	pro_desc string `json:"pro_desc"`
+}
+
 type Ac_trades_setup struct{
     Hash string `json:"hash"`
-	Ac_id string `json:"ac_id"`					
+	Ac_id string `json:"ac_id"`
 	Lvts string `json:"lvts"`
 	Calypso string `json:"calypso"`
 	Aladdin string `json:"aladdin"`
@@ -216,7 +224,9 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	    return t.read(stub, args)
 	} else if function == "get_account" {
 	    return t.get_account(stub, args)
-	}
+	} else if function == "produce" {
+        return t.produce(stub, args)
+    }
 	fmt.Println("invoke did not find func: " + function)					//error
 
 	return nil, errors.New("Received unknown function invocation")
@@ -367,6 +377,48 @@ func (t *SimpleChaincode) ac_trade_setup(stub shim.ChaincodeStubInterface, args 
 	err = stub.PutState(actradeStr, jsonAsBytes)	
 	
 	fmt.Println("- end create user")
+	return nil, nil
+}
+
+func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+	var key, value string
+	var err error
+	fmt.Println("running write()")
+
+	if len(args) != 2 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 2. name of the key and value to set")
+	}
+
+	key = args[0]                            //rename for fun
+	value = args[1]
+	err = stub.PutState(key, []byte(value))  //write the variable into the chaincode state
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+func (t *SimpleChaincode) produce(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+    var err error
+	fmt.Println("running produce()")
+
+    if len(args) != 5 {
+    	return nil, errors.New("Incorrect number of arguments. Expecting 5. name of the key and value to set")
+    }
+    key := args[0]
+	newaccount := product{}
+	newaccount.Hash = args[0]
+	newaccount.Pro_name = args[1]
+	newaccount.pro_num = args[2]
+	newaccount.pro_price = args[3]
+	newaccount.Pro_desc = args[4]
+
+	jsonAsBytes, _ := json.Marshal(newaccount)
+	err = stub.PutState( key, jsonAsBytes)
+    if err != nil {
+    	return nil, err
+    }
+	fmt.Println("- end produce")
 	return nil, nil
 }
 
